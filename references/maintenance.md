@@ -13,6 +13,10 @@ is the full contract; the header comment in the data file is the short version.
 | * → `blocked`    | Progress waits on something outside the team's control. | Write `blockedBy` naming the exact action and whose action it is. |
 | `blocked` → *    | The external condition resolved.                        | Delete `blockedBy`, set the new status honestly. |
 
+Every edit, regardless of transition: set `updatedAt` to today and write a one-line
+`changeNote`. The "recent progress" section is driven by these two fields — skip
+them and the board's top section silently goes stale.
+
 Rules of thumb:
 
 - **No "almost done".** If users can't touch it, it's not `shipped`.
@@ -21,6 +25,24 @@ Rules of thumb:
 - **Never delete a shipped item.** Shipped items are the project's memory. Obsolete
   features get a `summary` update ("已下线 / deprecated since …"), not deletion.
 - **Never recycle an `id`.** Ids are stable anchors other docs may reference.
+
+## Priority rules
+
+`priority` exists only for non-shipped items (shipped items are done — no triage):
+
+- **P0 (urgent)** — blocks other modules / severe defect / a user is waiting.
+  Example: a distribution channel blocked only by paperwork; infra that three other
+  features wait on.
+- **P1 (important)** — the next thing on the main path (core deliverable, revenue,
+  retention).
+- **P2 (normal)** — the default; nice-to-haves and polish.
+
+The board sorts non-shipped items by status tier first (blocked → building →
+planned) and priority within the tier. Rationale: blocked items usually wait on a
+*user-side* action, and the reader of the board is exactly the person who can
+unblock them — they must see those first.
+
+When priorities clump (everything P0), force-rank: at most ~20% of items may be P0.
 
 ## Writing good `next` items
 
@@ -47,7 +69,8 @@ If the blocker is a decision, not an action, say so: `需要拍板：付费 API 
 
 Every release that changes any feature's status:
 
-1. Update the affected items in the registry (status / since / next / blockedBy).
+1. Update the affected items in the registry (status / since / next / blockedBy /
+   priority), **and set `updatedAt` + `changeNote` on each touched item**.
 2. Bump `ROADMAP_UPDATED` to release day.
 3. Ship the registry update **in the same release/PR** as the feature work.
    A board that lags the product rots within weeks.

@@ -7,13 +7,17 @@ description: Build and maintain a feature status board (功能全景看板 / roa
 
 A single-page status board that answers four questions at a glance:
 
-1. **What is shipped?** (with the version/date it went live)
-2. **What is being built right now?**
-3. **What is planned?**
-4. **What is blocked — and by exactly what external action?**
+1. **What changed recently?** — a "recent progress" strip driven by per-item
+   `updatedAt` + `changeNote`, so readers never re-read the whole registry.
+2. **What do we do next?** — non-shipped items auto-sorted: blocked first (they
+   usually wait on a user-side action), then building, then planned; same tier
+   sorts by `priority` (P0 urgent → P2 normal).
+3. **What is shipped?** — with the version/date it went live (`since`).
+4. **What is blocked — and by exactly what external action?** — `blockedBy`.
 
-Every card expands to show **next actions** (`next[]`), so anyone — founder, teammate,
-AI coding agent — can open a card and immediately know what to do next.
+The complete area-grouped registry stays one toggle away, collapsed by default.
+Every card expands to show **next actions** (`next[]`), so anyone — founder,
+teammate, AI coding agent — can open a card and immediately know what to do next.
 
 ## Why this pattern works
 
@@ -62,6 +66,9 @@ and ports to vanilla HTML or any framework in one pass.
 | `next`      | string[]                                     | yes*     | Next actions / tracking items. The reason the board is useful. |
 | `blockedBy` | string                                       | blocked-only | The exact external action that unblocks it (often a user-side action). |
 | `since`     | string (version or date)                     | shipped-only | When it went live — accountability for "shipped". |
+| `updatedAt` | string (YYYY-MM-DD)                          | on change | Last change date; drives the "recent progress" section. |
+| `changeNote`| string                                       | on change | One line about what changed, shown next to `updatedAt`. |
+| `priority`  | `0 \| 1 \| 2`                                | non-shipped | 0 = urgent (blocks others / severe / user waiting), 1 = important, 2 = normal (default). |
 
 \* `next` is expected on every non-trivial item; a `shipped` item may omit it only
 when genuinely nothing follows.

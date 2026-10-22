@@ -20,23 +20,26 @@ The result became the shared source of truth between the human owner and multipl
 │                                             │
 │ 🚀 Shipped 12        50%                    │
 │ [████████ shipped | ███ building | ██ plan] │
-│ (All 24) (Shipped 12) (Building 6) ...      │
 │                                             │
-│ Core Experience                             │
-│ ● Voice cloning engine        [Shipped] v1.2│
-│   ▶ One-line summary...                     │
-│ ● Emotion control             [Planned]     │
-│   ▼ Detail + next actions:                  │
-│     ○ Pick scenes that need it              │
-│     ○ Regression test with flag on          │
-│ ● Mini-program release        [Blocked]     │
+│ 🕘 Recent progress (7d)                     │
+│ ● Voice cloning engine   [Shipped] 01-01    │
+│   v1.2 shipped: engine swap complete        │
+│                                             │
+│ ☰ Up next (blocked first, then P0→P2)       │
+│ ● Mini-program release  [Blocked] [P0]      │
 │   ⚠ User-side action: register the entity   │
+│ ● Emotion control       [Planned] [P2]      │
+│   ▶ next: pick scenes that need it          │
+│                                             │
+│ ▾ Full registry · 24 items (collapsed)      │
 └─────────────────────────────────────────────┘
 ```
 
 - **One data file is the whole system** — the page is a pure function of `roadmap.data.ts`.
   No CMS, no database, no PM-tool export that goes stale.
 - **Every card answers "what's next"** — open a card, continue the work, no meeting needed.
+- **Recent-progress strip + priority-sorted up-next** — the founder reads 7 lines,
+  not 25. Full registry stays one toggle away.
 - **A short maintenance contract** humans and AI agents both follow, so the board
   updates as a side effect of shipping, not as a separate chore.
 
