@@ -42,8 +42,8 @@ The result became the shared source of truth between the human owner and multipl
 
 ## Install (Codex / Claude / Kimi / compatible agents)
 
-Download `feature-roadmap-board.skill` from
-[Releases](../../releases) (it's a zip of this skill) and install per your agent's
+Download [`dist/feature-roadmap-board.skill`](dist/feature-roadmap-board.skill)
+(it's a zip of this skill) and install per your agent's
 skill-loading convention, e.g.:
 
 - **Codex**: unzip into `~/.codex/skills/` → `~/.codex/skills/feature-roadmap-board/SKILL.md`
